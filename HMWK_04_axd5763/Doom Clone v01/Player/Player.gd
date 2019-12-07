@@ -19,6 +19,8 @@ func _ready():
   Input.set_mouse_mode( Input.MOUSE_MODE_CAPTURED )
   get_node('Camera').set_zfar(200)
   $'../HUD Layer'._setPlayerHealth(PLAYER_HEALTH)
+  $'../HUD Layer'._setHealthPowerupMessage()
+  $'../HUD Layer'._setDamagePowerupMessage()
   yield( get_tree(), 'idle_frame' )
 
   get_tree().call_group( 'zombies', 'set_player', self )

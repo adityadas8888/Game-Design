@@ -49,6 +49,13 @@ func _setAmmoMessage() :
 func _setHealth() :
 	get_node('PlayerHealth').text = '%d / %d' % [ health, maxhealth ]
 
+func _setHealthPowerupMessage() :
+  get_node( 'HealthPowerup' ).text = '%s' % 'inactive'
+  get_node( 'HealthPowerup' ).add_color_override("font_color", Color(1,0,0,1))
+func _setDamagePowerupMessage() :
+	get_node('DamagePowerup').text = '%s' % 'inactive'
+	get_node( 'DamagePowerup' ).add_color_override("font_color", Color( 0, 1, 0, 1 ))
+	
 func _setPlayerHealth(qty) :
 	maxhealth = qty
 	health = qty
