@@ -22,7 +22,7 @@ func _physics_process( delta ) :
 		return
 
 func explode():
-	health-=1
+	health-=global.damage
 	
 	$AudioStreamPlayer._playSound('hit')
 	if health<=0:

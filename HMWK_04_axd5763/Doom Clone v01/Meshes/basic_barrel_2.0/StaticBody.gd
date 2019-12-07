@@ -22,7 +22,7 @@ func _physics_process( delta ) :
 		return
 
 func explode():
-	health-=1
+	health-=global.damage
 	$AudioStreamPlayer._playSound('hit')
 	if health<=0 and exploded !=true:
 		$AudioStreamPlayer._playSound('explosion')
@@ -45,4 +45,4 @@ func _on_Timer_timeout():
 func find_zombie_body(bodies):
 	for i in bodies:
 		if i.has_method('hurt'):
-			i.hurt(1)
+			i.hurt(global.damage)

@@ -26,7 +26,7 @@ func _on_Area_body_shape_entered(body_id, body, body_shape, area_shape):
 	if body.name == 'Player':
 		$'../HUD Layer'._updateHealthPowerupMessage()
 		$'../HUD Layer'._setPlayerHealth(20)
-		timer.start(5)
+		timer.start(10)
 	pass # Replace with function body.
 
 

@@ -44,7 +44,7 @@ func _physics_process( delta ) :
 
 #-----------------------------------------------------------
 func hurt( howMuch = 1 ) :
-  health -= howMuch
+  health -= global.damage
 
   if health <= 0 :
     dead = true
