@@ -24,9 +24,10 @@ func _physics_process( delta ) :
 func explode():
 	health-=1
 	$AudioStreamPlayer._playSound('hit')
-	if health<=0:
+	if health<=0 and exploded !=true:
 		$AudioStreamPlayer._playSound('explosion')
 		var bodies = $Area.get_overlapping_bodies()
+		#print(bodies)
 		find_zombie_body(bodies)
 		exploded = true
 		get_node("barrelmesh").visible=false

@@ -56,6 +56,13 @@ func _setDamagePowerupMessage() :
 	get_node('DamagePowerup').text = '%s' % 'inactive'
 	get_node( 'DamagePowerup' ).add_color_override("font_color", Color( 0, 1, 0, 1 ))
 	
+func _updateHealthPowerupMessage() :
+  get_node( 'HealthPowerup' ).text = '%s' % 'Meth mode on'
+  get_node( 'HealthPowerup' ).add_color_override("font_color", Color(1,0,0,1))
+func _updateDamagePowerupMessage() :
+	get_node('DamagePowerup').text = '%s' % 'Hulk Smash'
+	get_node( 'DamagePowerup' ).add_color_override("font_color", Color( 0, 1, 0, 1 ))
+	
 func _setPlayerHealth(qty) :
 	maxhealth = qty
 	health = qty

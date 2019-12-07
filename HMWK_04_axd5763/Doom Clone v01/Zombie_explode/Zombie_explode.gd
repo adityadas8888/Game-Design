@@ -41,13 +41,15 @@ func _physics_process( delta ) :
       MOVE_SPEED=0
       timer.set_wait_time(2)
       timer.start()
-
 #-----------------------------------------------------------
 func hurt( howMuch = 1 ) :
   health -= howMuch
 
   if health <= 0 :
     dead = true
+    var bodies = $Area.get_overlapping_bodies()
+    print(bodies)
+    find_any_body(bodies)
     $CollisionShape.disabled = true
     anim_player.play( 'die' )
     print( '%s died.' % name )
@@ -56,6 +58,8 @@ func hurt( howMuch = 1 ) :
 
   else :
     anim_player.play( 'wounded' )
+    var bodies = $Area.get_overlapping_bodies()
+    find_any_body(bodies)
     print( '%s wounded by %d hp , now has %d hp.' % [ name, howMuch, health ] )
     #$'../Zombie Audio'._playSound( 'grunt' )
 
@@ -73,4 +77,11 @@ func set_player( p ) :
 func _on_Timer_timeout():
 	hurt_health=1
 	MOVE_SPEED=3
+	
+	
+func find_any_body(bodies):
+	for i in bodies:
+		print(i)
+		if i.has_method('hurt'):
+			i.hurt(1)
 

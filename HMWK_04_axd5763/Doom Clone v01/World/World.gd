@@ -4,17 +4,18 @@ onready var timer = get_node('Timer')
 const DEFAULT_MAX_AMMO = 10
 var level = 0
 var levelData = 0
-var zombies = 0
 var zindex = 0
+var zombies = 0
+var exzombies = 0
 var vartime = 5
 func _on_Timer_timeout():
 	if vartime>=0:
 		vartime-=0.5
 	else:
 		vartime = 1
-	print(global.exploded)
-	if zombies != null and global.exploded== false:
-		_addZombies( zombies.get( 'tscn', null ), [[ [ 10,   2,  10  ], "2d2" ]] )
+	if zombies != null and exzombies != null and global.exploded== false:
+		#_addZombies( zombies.get( 'tscn', null ), [[ [ 10,   2,  10  ], "2d2" ]] )
+		_addZombies( exzombies.get( 'tscn', null ), [[ [ 10,   2,  10  ], "2d2" ]] )
 		$Player._set_player_zombie()
 		timer.set_wait_time(vartime)
 		timer.start()
@@ -34,6 +35,9 @@ func _ready() :
   zombies = levelData.get( 'ZOMBIES', null )
   if zombies != null :
    _addZombies( zombies.get( 'tscn', null ), zombies.get( 'instances', [] ) )
+
+  exzombies = levelData.get( 'EXZOMBIES', null )
+
   var barrel = levelData.get( 'OBSTACLES', null )
   if barrel != null :
     _addBarrel( barrel.get( 'tscn', null ), barrel.get( 'instances', [] ) )

@@ -86,7 +86,6 @@ func _physics_process( delta ) :
         coll.hurt(1)
 		
       if raycast.is_colliding() and coll.has_method( 'explode' ) :
-        print('its entering')
         coll.explode()
     else :
       $'../Player Audio'._playSound( 'empty' )

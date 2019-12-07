@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Zombie_explode/Zombie_explode.gd" type="Script" id=1]
-[ext_resource path="res://Zombie/Images/fps_monster_sprites.png" type="Texture" id=2]
-
+[ext_resource path="res://Zombie_explode/Images/fps_monster_sprites.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.8
@@ -63,6 +62,8 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 13 ]
 }
 
+[sub_resource type="ConcavePolygonShape" id=6]
+
 [node name="Zombie_explode" type="KinematicBody"]
 script = ExtResource( 1 )
 
@@ -86,4 +87,10 @@ enabled = true
 cast_to = Vector3( 0, 0, 1.5 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+shape = SubResource( 6 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
