@@ -22,9 +22,9 @@ config/icon="res://Images/icon.png"
 [autoload]
 
 Utils="*res://Utilities/Utils.gd"
-nextlevel="*res://Levels/nextlevel.gd"
 global="*res://World/global.gd"
 spawnplatform="*res://Meshes/Spawnplatform/StaticBody.gd"
+level="*res://Levels/level.gd"
 
 [display]
 

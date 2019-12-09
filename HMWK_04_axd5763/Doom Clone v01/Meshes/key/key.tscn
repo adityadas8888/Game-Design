@@ -23,6 +23,7 @@ radius = 2.60189
 height = 24.9987
 
 [node name="Scene Root" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0 )
 script = ExtResource( 1 )
 
 [node name="RootNode (gltf orientation matrix)" type="Spatial" parent="."]
@@ -34,6 +35,7 @@ transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 [node name="keyobjcleanermaterialmergergles" type="Spatial" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)"]
 
 [node name="Mesh" type="MeshInstance" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 

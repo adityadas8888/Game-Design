@@ -3,6 +3,11 @@ extends Control
 
 #-----------------------------------------------------------
 onready var messageBox = get_node( 'Background/Message Box' )
+onready var ingameMenu = get_node( 'Background' )
+onready var restartButton = get_node( 'Background/Restart' )
+onready var exitButton = get_node( 'Background/Exit' )
+onready var popupMenu = get_node( 'PopUpBG' )
+onready var popupMessage = get_node( 'PopUpBG/popupmessage' )
 
 #-----------------------------------------------------------
 func _input( event ) :
@@ -18,7 +23,7 @@ func _input( event ) :
 #-----------------------------------------------------------
 func activate( msg ) :
   #print( 'activate( "', msg, '" )' )
-
+  resetPopUp()
   messageBox.text = msg
   visible = true
 
@@ -41,3 +46,16 @@ func _on_Restart_pressed() :
   get_tree().reload_current_scene()
 
 #-----------------------------------------------------------
+func resetPopUp () :	
+	visible = false
+	ingameMenu.set_visible(true)
+	popupMenu.set_visible(false)
+	
+	pass
+
+func setButtonText( buttonName , msg ) :
+	match buttonName:
+		"Restart" :
+			restartButton.text = msg
+		"Exit" :
+			exitButton.text = msg

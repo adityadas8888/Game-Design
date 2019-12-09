@@ -2,12 +2,15 @@ extends Spatial
 
 onready var timer = get_node('Timer')
 const DEFAULT_MAX_AMMO = 10
-var level = 0
 var levelData = 0
 var zindex = 0
 var zombies = 0
 var exzombies = 0
 var vartime = 5
+var exit=false
+var current_level = 0
+
+
 func _on_Timer_timeout():
 	if vartime>=0:
 		vartime-=0.5
@@ -25,13 +28,29 @@ func _ready() :
   #timer.set_wait_time(vartime)
   timer.start(vartime)
   get_tree().paused = false
-  level = nextlevel.changelevel
-  levelData = _getLevelData( level )
+  
+  if current_level != level.current_level:
+    current_level = level.current_level
+    levelData = _getLevelData( current_level )
 
+    if current_level == 1 :
+      if levelData.get( 'numberOfLevels', 0 ) != 0 :
+        level.SetMaximumLevel(levelData.get( 'numberOfLevels', 0 ))
+      else :
+        get_node( 'HUD Layer' )._levelLoadError()
+        return
+
+    level_(levelData)
+
+func level_(levelData) : 
   var ammo = levelData.get( 'AMMO', null )
   if ammo != null :
     _addAmmo( ammo.get( 'tscn', null ), ammo.get( 'instances', [] ) )
- 
+  
+  var key = levelData.get( 'KEY', null )
+  if key != null :
+    _addKey( key.get( 'Keytscn', null ), key.get( 'position', [] ) )
+  
   zombies = levelData.get( 'ZOMBIES', null )
   if zombies != null :
    _addZombies( zombies.get( 'tscn', null ), zombies.get( 'instances', [] ) )
@@ -57,15 +76,39 @@ func _ready() :
   var spawnplatform = levelData.get( 'ZOMBIE_SPAWN', null )
   if spawnplatform != null :
     _addSpawnerPlatform(spawnplatform)
-
+	
 		
   get_node( 'HUD Layer' )._resetAmmo( levelData.get( 'maxAmmo', DEFAULT_MAX_AMMO ) )
 
+#---------------------------------------------------------------------
+func _physics_process(delta):
+#adding exit sign if needed
+	if exit==false:
+		if global.Key_check()==true:
+			exit=true 
+			var exit = levelData.get( 'EXIT', null )
+			if exit != null :
+    			_addExit( exit.get( 'Exittscn', null ), exit.get( 'position', [] ) )
+		    	
+ 
 #-----------------------------------------------------------
 func _input( __ ) :    # Not using event so don't name it.
   if Input.is_action_just_pressed( 'maximize' ) :
     OS.window_fullscreen = not OS.window_fullscreen
 	
+func _addExit( model, position ) :
+  var inst
+  var index = 0
+  if model == null :
+    print( 'There were %d exit but no model?' % len( position ) )
+    return
+  #var pos = instInfo
+  var ExitScene = load( model )
+  inst = ExitScene.instance()
+  inst.name = 'Exit-%02d' % index
+  inst.translation = Vector3( position[0], position[1], position[2] )
+  get_node( '.' ).add_child( inst )
+
 #-----------------------------------------------------------
 func _addAmmo( model, instances ) :
   var inst
@@ -88,6 +131,21 @@ func _addAmmo( model, instances ) :
     inst.setQuantity( amount )
     print( '%s at %s, %d rounds.' % [ inst.name, str( pos ), amount ] )
     get_node( '.' ).add_child( inst )
+
+func _addKey( model, position ) :
+  var inst
+  var index = 0
+  if model == null :
+    print( 'There were %d key but no model?' % len( position ) )
+    return
+  #var pos = instInfo
+  var keyScene = load( model )
+  inst = keyScene.instance()
+  inst.name = 'Key-%02d' % index
+  inst.translation = Vector3( position[0], position[1], position[2] )
+  get_node( '.' ).add_child( inst )
+
+
 
 func _addMedbox( model, instances ) :
   var inst

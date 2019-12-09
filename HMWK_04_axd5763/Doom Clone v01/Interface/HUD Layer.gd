@@ -1,7 +1,6 @@
 extends CanvasLayer
 var elapsedTime = 0
 var lastTime    = 0
-var level = 0
 var health = 0
 var maxhealth = 0
 #-----------------------------------------------------------
@@ -99,14 +98,35 @@ func _resetOpponents( qty ) :
 func _setOpponentMessage() :
   get_node( 'Opponents' ).text = '%d / %d' % [ numOpponents, maxOpponents ]
 
+func player_won():
+    level._changelevel()
+    var timeStr = $'../HUD Layer'.getTimeStr()
+    print( 'Last opponent died at %s.' % timeStr )
+    $'../Message Layer/Message'.activate( 'Player Wins!\n%s' % timeStr )    
+    $'../Message Layer/Message'.setButtonText( 'Restart' , 'Next Level')
+
+
+
 func _opponentDied() :
   numOpponents -= 1
   _setOpponentMessage()
 
   if numOpponents == 0 :
-    nextlevel._changelevel()
     var timeStr = $'../HUD Layer'.getTimeStr()
+  
     print( 'Last opponent died at %s.' % timeStr )
-    $'../Message Layer/Message'.activate( 'Player Wins!\n%s' % timeStr )
+  
+    if level.current_level != level.maximum_level :
+      level.level_change(1)
+    else :
+      _levelsCompleted()
+      level.current_level = 1
+      return
+
+    $'../Message Layer/Message'.activate( 'Player Wins!\n%s' % timeStr )    
+    $'../Message Layer/Message'.setButtonText( 'Restart' , 'Next Level')
 
 #-----------------------------------------------------------
+func _levelsCompleted() :
+  $'../Message Layer/Message'.activate( 'You have won all the levels.' )
+  $'../Message Layer/Message'.setButtonText( 'Restart' , 'Restart from level 1 ?' )

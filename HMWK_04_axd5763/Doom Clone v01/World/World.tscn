@@ -145,7 +145,6 @@ custom_fonts/font = SubResource( 3 )
 text = "00/00"
 
 [node name="Message Layer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 100
 
 [node name="Message" type="Control" parent="Message Layer"]
@@ -200,6 +199,14 @@ margin_right = 100.0
 margin_bottom = 128.0
 custom_fonts/font = SubResource( 7 )
 text = "Exit"
+
+[node name="PopUpBG" type="ColorRect" parent="Message Layer/Message"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="popupmessage" type="Label" parent="Message Layer/Message/PopUpBG"]
+margin_right = 40.0
+margin_bottom = 14.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 7.63

@@ -1,4 +1,6 @@
 {
+  "numberOfLevels" : 2,
+
   "arenaSize" : {
     "arenaSize":[ 123, 147 ],
     "tscn" : "res://World/floor.tscn"
@@ -84,39 +86,27 @@
     },
 
     "instances" : [
-      [ [ -5,   0,  1  ], "2d2" ],
-      [ [ -22.9256,   0,   8.86691 ], "2d2" ],
       [ [ -18.4463,   0,  14.1263  ], "2d2" ],
-      [ [ -6,   0,   9.86691 ], "2d2" ]  ]
+      [ [ -22.9256,   0,   8.86691 ], "2d2" ],
+      [ [ -19.4463,   0,  14.1263  ], "2d2" ]]
   },
-  "EXZOMBIES" : {
-    "tscn"  : "res://Zombie_explode/Zombie_Explode.tscn",
+  "KEY" :{
 
-    "audio" : {
-      "grunt" : "res://Audio/Male Grunt-SoundBible.com-68178715.wav",
-      "die"   : "res://Audio/Wilhelm Scream - 0477.wav"
-    },
+    "Keytscn" : "res://Meshes/key/key.tscn",
 
-    "instances" : [
-      [ [ -8,   0,  1  ], "2d2" ],
-      [ [ -20.9256,   0,   10.86691 ], "2d2" ] ]
+    "position" :
+
+    [-15, 0, 4]
+
   },
 
-  "ZOMBIE_SPAWN" : {
-    "Zombietscn"  : "res://Zombie/Zombie.tscn",
-    "Platformtscn"  : "res://Meshes/Spawnplatform/StaticBody.tscn",
+   "EXIT" :{
 
-    "audio" : {
-      "grunt" : "res://Audio/Male Grunt-SoundBible.com-68178715.wav",
-      "die"   : "res://Audio/Wilhelm Scream - 0477.wav"
-    },
+    "Exittscn" : "res://Meshes/Exit/Exit.tscn",
 
-    "timeInterval" : 5,
+    "position" :
 
-    "position" : 
+    [15, 0, 4]
 
-      [ [  10,    1,   10 ], "1d4" ]
-  
-    
   }
 }
