@@ -5,15 +5,17 @@ extends Node
 # var b = "text"
 var exploded = false
 var damage = 1
-var add_key=false
-
+var addkey=false
+#onready var key_path = get_node( '/World/HUD Layer/Key' )
 # Called when the node enters the scene tree for the first time.
+onready var key_path = get_tree().get_root().get_node("World").get_node("HUD Layer/Key_symbol")
 func _ready():
 
 	pass # Replace with function body.
 
 func Add_key():
-	add_key=true
+	key_path.set_visible(true)
+	addkey=true
 	
 
 func explosion():
@@ -21,7 +23,7 @@ func explosion():
 	
 	
 func Key_check():
-	return add_key 
+	return addkey 
 	
 	
 func damagepwr():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://World/World.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Pew_Pew-DKnight556-1379997159.wav" type="AudioStream" id=2]
@@ -8,9 +8,10 @@
 [ext_resource path="res://Zombie/Zombie Audio.gd" type="Script" id=6]
 [ext_resource path="res://Interface/HUD Layer.gd" type="Script" id=7]
 [ext_resource path="res://Interface/Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://Interface/Message.gd" type="Script" id=9]
-[ext_resource path="res://Meshes/health_potion/Healthpwrup.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Meshes/ankh_asset/damagepwrup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://World/key1.jpg" type="Texture" id=9]
+[ext_resource path="res://Interface/Message.gd" type="Script" id=10]
+[ext_resource path="res://Meshes/health_potion/Healthpwrup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Meshes/ankh_asset/damagepwrup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -67,7 +68,6 @@ stream = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="HUD Layer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 50
 script = ExtResource( 7 )
 
@@ -144,6 +144,17 @@ rect_pivot_offset = Vector2( -906, -346 )
 custom_fonts/font = SubResource( 3 )
 text = "00/00"
 
+[node name="Key_symbol" type="TextureRect" parent="HUD Layer"]
+visible = false
+show_behind_parent = true
+use_parent_material = true
+margin_left = 1370.0
+margin_top = 70.0
+margin_right = 2213.0
+margin_bottom = 929.0
+rect_scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
 [node name="Message Layer" type="CanvasLayer" parent="."]
 layer = 100
 
@@ -152,7 +163,7 @@ pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="Background" type="ColorRect" parent="Message Layer/Message"]
 anchor_left = 0.5
@@ -211,10 +222,10 @@ margin_bottom = 14.0
 [node name="Timer" type="Timer" parent="."]
 wait_time = 7.63
 
-[node name="Spatial" parent="." instance=ExtResource( 10 )]
+[node name="Spatial" parent="." instance=ExtResource( 11 )]
 transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 5.06647, 0, 0 )
 
-[node name="Spatial2" parent="." instance=ExtResource( 11 )]
+[node name="Spatial2" parent="." instance=ExtResource( 12 )]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, -5.8574, 0, 0 )
 [connection signal="pressed" from="Message Layer/Message/Background/Restart" to="Message Layer/Message" method="_on_Restart_pressed"]
 [connection signal="pressed" from="Message Layer/Message/Background/Exit" to="Message Layer/Message" method="_on_Exit_pressed"]

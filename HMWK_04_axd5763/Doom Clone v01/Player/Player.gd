@@ -32,11 +32,16 @@ func _ready():
   yield( get_tree(), 'idle_frame' )
   _set_player_zombie()
   get_tree().call_group( 'zombies', 'set_player', self )
-  get_tree().call_group( 'barrels', 'set_player', self )
-  get_tree().call_group( 'ammo', 'set_player', self )
-  get_tree().call_group( 'medbox', 'set_player', self )
+  #get_tree().call_group( 'barrels', 'set_player', self )
+  #get_tree().call_group( 'ammo', 'set_player', self )
+  #get_tree().call_group( 'medbox', 'set_player', self )
   get_tree().call_group( 'player', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
 #-----------------------------------------------------------
+  get_tree().call_group( 'zombies', 'set_zombie', get_tree().get_root().get_node("World").get_node("Zombie") )
+  
+func set_zombie( p ) :
+  zombies = p
+  
 func _input( event ) :
   if Input.is_action_just_pressed( 'zoom' ) :
     zoomed = not zoomed
@@ -65,6 +70,8 @@ func _set_player_zombie():
 	get_tree().call_group( 'player', 'set_player', self )
 	get_tree().call_group( 'zombies', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
 
+func set_player( p ) :
+  player = p
 #-----------------------------------------------------------
 func _physics_process( delta ) :
   var move_vec = Vector3()
@@ -91,7 +98,7 @@ func _physics_process( delta ) :
     gunAttackSprite.set_visible(false)
     meleeAttackSprite.set_visible(true) 
     timer.start(0.6)
-    var vec_to_player = self.translation - zombies.translation
+    var vec_to_player = translation - zombies.translation
     if vec_to_player.length() > SENSE_DISTANCE :
     	coll = raycast.get_collider()
     	if raycast.is_colliding() and coll.has_method( 'hurt' ) :
