@@ -20,13 +20,11 @@ func _process( delta ) :
 func setQuantity( qty ) :
   quantity = qty
 
-
 func _on_Area_body_entered(body):
 	if body.name == 'Player':
-		global.Add_key()
 		queue_free()
+		global.Add_key()
+		
+		#get_node("/Scene Root/KeyMesh").visible=false
+		#$CollisionShape.disabled = true
 	 # Replace with function body.
-
-
-func _on_Area_area_shape_entered(area_id, area, area_shape, self_shape):
-	pass # Replace with function body.

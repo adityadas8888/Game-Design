@@ -34,15 +34,14 @@ transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 
 [node name="keyobjcleanermaterialmergergles" type="Spatial" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)"]
 
-[node name="Mesh" type="MeshInstance" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles"]
+[node name="KeyMesh" type="MeshInstance" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="Area" type="Area" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/Mesh"]
+[node name="Area" type="Area" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/KeyMesh"]
 
-[node name="CollisionShape" type="CollisionShape" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/Mesh/Area"]
-transform = Transform( 1, 0, 0, 0, 13.2047, 0, 0, 0, 145.109, 5.33203, -1.44547, 2.35731 )
+[node name="CollisionShape" type="CollisionShape" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/KeyMesh/Area"]
+transform = Transform( 15, 0, 0, 0, 13.205, 3.8147e-006, 0, -2.38419e-007, 145.109, 5.33203, -1.44547, 79.4821 )
 shape = SubResource( 2 )
-[connection signal="area_shape_entered" from="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/Mesh/Area" to="." method="_on_Area_area_shape_entered"]
-[connection signal="body_entered" from="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/Mesh/Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_entered" from="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/keyobjcleanermaterialmergergles/KeyMesh/Area" to="." method="_on_Area_body_entered"]

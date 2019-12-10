@@ -56,7 +56,7 @@ func _setDamagePowerupMessage() :
 	get_node( 'DamagePowerup' ).add_color_override("font_color", Color( 0, 1, 0, 1 ))
 	
 func _updateHealthPowerupMessage() :
-  get_node( 'HealthPowerup' ).text = '%s' % 'Meth mode on'
+  get_node( 'HealthPowerup' ).text = '%s' % 'Health mode on'
   get_node( 'HealthPowerup' ).add_color_override("font_color", Color(1,0,0,1))
 func _updateDamagePowerupMessage() :
 	get_node('DamagePowerup').text = '%s' % 'Hulk Smash'
@@ -99,12 +99,14 @@ func _setOpponentMessage() :
   get_node( 'Opponents' ).text = '%d / %d' % [ numOpponents, maxOpponents ]
 
 func player_won():
-    level._changelevel()
+    level.level_change(level.current_level)
     var timeStr = $'../HUD Layer'.getTimeStr()
     print( 'Last opponent died at %s.' % timeStr )
-    $'../Message Layer/Message'.activate( 'Player Wins!\n%s' % timeStr )    
-    $'../Message Layer/Message'.setButtonText( 'Restart' , 'Next Level')
-
+    $'../Message Layer/Message'.activate( 'Player Wins!\n%s' % timeStr )  
+    if level.current_level==1 :
+    	$'../Message Layer/Message'.setButtonText( 'Restart' , 'Next Level')
+    elif level.current_level==2 :
+    	$'../Message Layer/Message'.setButtonText( 'Restart' , 'Exit')
 
 
 func _opponentDied() :

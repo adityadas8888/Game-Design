@@ -32,16 +32,11 @@ func _ready():
   yield( get_tree(), 'idle_frame' )
   _set_player_zombie()
   get_tree().call_group( 'zombies', 'set_player', self )
-  #get_tree().call_group( 'barrels', 'set_player', self )
-  #get_tree().call_group( 'ammo', 'set_player', self )
-  #get_tree().call_group( 'medbox', 'set_player', self )
-  get_tree().call_group( 'player', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
+  get_tree().call_group( 'barrels', 'set_player', self )
+  get_tree().call_group( 'ammo', 'set_player', self )
+  get_tree().call_group( 'medbox', 'set_player', self )
+  #get_tree().call_group( 'player', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
 #-----------------------------------------------------------
-  get_tree().call_group( 'zombies', 'set_zombie', get_tree().get_root().get_node("World").get_node("Zombie") )
-  
-func set_zombie( p ) :
-  zombies = p
-  
 func _input( event ) :
   if Input.is_action_just_pressed( 'zoom' ) :
     zoomed = not zoomed
@@ -67,11 +62,9 @@ func _process( __ ) :    # Not using delta so don't name it.
   if Input.is_action_pressed( 'restart' ) :
     kill()
 func _set_player_zombie():
-	get_tree().call_group( 'player', 'set_player', self )
-	get_tree().call_group( 'zombies', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
+	get_tree().call_group( 'zombies', 'set_player', self )
+	
 
-func set_player( p ) :
-  player = p
 #-----------------------------------------------------------
 func _physics_process( delta ) :
   var move_vec = Vector3()
@@ -98,19 +91,17 @@ func _physics_process( delta ) :
     gunAttackSprite.set_visible(false)
     meleeAttackSprite.set_visible(true) 
     timer.start(0.6)
-    var vec_to_player = translation - zombies.translation
-    if vec_to_player.length() > SENSE_DISTANCE :
-    	coll = raycast.get_collider()
-    	if raycast.is_colliding() and coll.has_method( 'hurt' ) :
-        	coll.hurt(1)
-    	
+    #var vec_to_player = self.translation - zombies.translation
+    #if vec_to_player.length() > SENSE_DISTANCE :
+    coll = raycast.get_collider()
+    if raycast.is_colliding() and coll.has_method( 'hurt' ) :
+      var trans = coll.translation
+      var vec_to_player = self.translation-trans
+      if vec_to_player.length()<3:
+        global.damage=5 
+        coll.hurt(global.damage)
+        global.damage=1
 
-  # Attack Zombie with Melee
-     
-#  if raycast.is_colliding() and coll.has_method( 'hurt' ) :
-#    coll.hurt()
-#    return
-  
   # Attack Barrel_area with Melee
   coll = raycast.get_collider()
   if raycast.is_colliding() and (coll.name == "Barrel_area") : 
@@ -169,3 +160,4 @@ func _on_Timer_timeout():
 	meleeAttackSprite.set_visible(false)
 	gunAttackSprite.set_visible(true)
 	pass # Replace with function body.
+

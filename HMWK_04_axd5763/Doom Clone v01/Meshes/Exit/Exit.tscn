@@ -3,7 +3,7 @@
 [ext_resource path="res://Meshes/Exit/exit.gd" type="Script" id=1]
 [ext_resource path="res://Meshes/Exit/lambert1.material" type="Material" id=2]
 
-[sub_resource type="ArrayMesh" id=2]
+[sub_resource type="ArrayMesh" id=1]
 resource_name = "Sign_lambert1_0"
 surfaces/0 = {
 "aabb": AABB( -2.60178, -1.29484, -0.5, 5.20356, 2.5897, 1 ),
@@ -18,8 +18,8 @@ surfaces/0 = {
 "vertex_count": 54
 }
 
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 2.02251, 1.66199, 1.46214 )
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 3.20337, 2.30286, 1.8361 )
 
 [node name="Scene Root" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, 5 )
@@ -41,12 +41,12 @@ transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0 )
 [node name="Sign" type="Spatial" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f51c5b26368942cead075bb65b98d238fbx/RootNode/ExitSign2"]
 
 [node name="Sign_lambert1_0" type="MeshInstance" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f51c5b26368942cead075bb65b98d238fbx/RootNode/ExitSign2/Sign"]
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Area" type="Area" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f51c5b26368942cead075bb65b98d238fbx/RootNode/ExitSign2/Sign"]
 
 [node name="CollisionShape" type="CollisionShape" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f51c5b26368942cead075bb65b98d238fbx/RootNode/ExitSign2/Sign/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.47188, 1.61038, 4.40577 )
-shape = SubResource( 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47188, -0.38962, 0.405769 )
+shape = SubResource( 2 )
 [connection signal="body_entered" from="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f51c5b26368942cead075bb65b98d238fbx/RootNode/ExitSign2/Sign/Area" to="." method="_on_Area_body_entered"]

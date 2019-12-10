@@ -1,4 +1,6 @@
 {
+  "numberOfLevels" : 2,
+  
   "arenaSize" : {
     "arenaSize":[ 123, 147 ],
     "tscn" : "res://World/floor.tscn"
@@ -96,6 +98,25 @@
       [ [  10,    1,   10 ], "1d4" ]
   
     
+  },
+  "KEY" :{
+
+    "Keytscn" : "res://Meshes/key/key.tscn",
+
+    "position" :
+
+    [-15, 0, 4]
+
+  },
+
+   "EXIT" :{
+
+    "Exittscn" : "res://Meshes/Exit/Exit.tscn",
+
+    "position" :
+
+    [15, 0, 4]
+
   }
 }
 

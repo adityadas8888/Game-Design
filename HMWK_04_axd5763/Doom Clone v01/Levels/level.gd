@@ -1,8 +1,6 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 var current_level=1
 
 var maximum_level = 0

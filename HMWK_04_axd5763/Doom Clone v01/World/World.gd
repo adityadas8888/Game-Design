@@ -28,7 +28,8 @@ func _ready() :
   #timer.set_wait_time(vartime)
   timer.start(vartime)
   get_tree().paused = false
-  
+  exit=false
+
   if current_level != level.current_level:
     current_level = level.current_level
     levelData = _getLevelData( current_level )
@@ -89,7 +90,6 @@ func _physics_process(delta):
 			var exit = levelData.get( 'EXIT', null )
 			if exit != null :
     			_addExit( exit.get( 'Exittscn', null ), exit.get( 'position', [] ) )
-		    	
  
 #-----------------------------------------------------------
 func _input( __ ) :    # Not using event so don't name it.
