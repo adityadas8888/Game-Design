@@ -55,7 +55,6 @@ material_override = SubResource( 3 )
 texture = ExtResource( 4 )
 vframes = 3
 hframes = 5
-frame = 14
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explode = SubResource( 4 )

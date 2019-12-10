@@ -13,6 +13,9 @@ var zoomed = false
 
 onready var anim_player = $AnimationPlayer
 onready var raycast = $RayCast
+onready var timer = $Timer
+onready var meleeAttackSprite = get_node( 'View/Crosshair/Control/Sprite2' )
+onready var gunAttackSprite = get_node( 'View/Crosshair/Control/Sprite' )
 
 #-----------------------------------------------------------
 func _ready():
@@ -75,13 +78,44 @@ func _physics_process( delta ) :
 
   # warning-ignore:return_value_discarded
   move_and_collide( move_vec * MOVE_SPEED * delta )
+  # This is for RMB Melee
+  if Input.is_action_just_pressed( 'MeleeAttack' ):
+    gunAttackSprite.set_visible(false)
+    meleeAttackSprite.set_visible(true)
+    timer.start(0.6)
 
+  # Attack Zombie with Melee
+  var coll = raycast.get_collider()
+#  if raycast.is_colliding() and coll.has_method( 'hurt' ) :
+#    coll.hurt()
+#    return
+  
+  # Attack Barrel_area with Melee
+  if raycast.is_colliding() and (coll.name == "Barrel_area") : 
+    print('Barrel Hit called')
+    coll.get_parent().BarrelHit()
+    return
+
+  # Attack BarrelHit with Melee
+  if raycast.is_colliding() and coll.has_method( 'BarrelHit' ) : 
+    print('Barrel Hit called')
+    coll.BarrelHit()
+    return
+
+  # Attack HealthPack with Melee
+  if raycast.is_colliding() and coll.has_method( 'setHealthPack' ) : 
+    #coll.setHealthPack()
+    $'../HUD Layer'._resetPlayerHealth( 5 )
+    return
+   
   if Input.is_action_just_pressed( 'shoot' ) and !anim_player.is_playing() :
+    meleeAttackSprite.set_visible(false)
+    gunAttackSprite.set_visible(true)
     if $'../HUD Layer'._ammoUsed() :
       anim_player.play( 'shoot' )
       $'../Player Audio'._playSound( 'shoot' )
 
-      var coll = raycast.get_collider()
+      coll = raycast.get_collider()
       if raycast.is_colliding() and coll.has_method( 'hurt' ) :
         coll.hurt(1)
 		
@@ -107,3 +141,9 @@ func kill() :
   $'../Message Layer/Message'.activate( 'Player Died\n%s' % timeStr )
 
 #-----------------------------------------------------------
+
+
+func _on_Timer_timeout():
+	meleeAttackSprite.set_visible(false)
+	gunAttackSprite.set_visible(true)
+	pass # Replace with function body.
