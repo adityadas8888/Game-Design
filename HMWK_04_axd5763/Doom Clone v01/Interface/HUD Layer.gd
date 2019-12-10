@@ -71,7 +71,7 @@ func _heal(qty) :
 	if health+qty>maxhealth:
 		health = maxhealth
 	else:
-		health=qty
+		health+=qty
 	_setHealth()
 func _updatePlayerHealth() :
 	health-=1

@@ -10,13 +10,18 @@ const FOV_NORMAL = 70
 const FOV_ZOOM   = 6
 
 var zoomed = false
+const SENSE_DISTANCE=2
 
 onready var anim_player = $AnimationPlayer
 onready var raycast = $RayCast
 onready var timer = $Timer
 onready var meleeAttackSprite = get_node( 'View/Crosshair/Control/Sprite2' )
 onready var gunAttackSprite = get_node( 'View/Crosshair/Control/Sprite' )
+onready var anim_zombie = $AnimationZombies
+var zombies=null
+var player=null 
 
+var coll
 #-----------------------------------------------------------
 func _ready():
   Input.set_mouse_mode( Input.MOUSE_MODE_CAPTURED )
@@ -25,11 +30,12 @@ func _ready():
   $'../HUD Layer'._setHealthPowerupMessage()
   $'../HUD Layer'._setDamagePowerupMessage()
   yield( get_tree(), 'idle_frame' )
-
+  _set_player_zombie()
   get_tree().call_group( 'zombies', 'set_player', self )
   get_tree().call_group( 'barrels', 'set_player', self )
   get_tree().call_group( 'ammo', 'set_player', self )
   get_tree().call_group( 'medbox', 'set_player', self )
+  get_tree().call_group( 'player', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
 #-----------------------------------------------------------
 func _input( event ) :
   if Input.is_action_just_pressed( 'zoom' ) :
@@ -56,7 +62,9 @@ func _process( __ ) :    # Not using delta so don't name it.
   if Input.is_action_pressed( 'restart' ) :
     kill()
 func _set_player_zombie():
-	get_tree().call_group( 'zombies', 'set_player', self )
+	get_tree().call_group( 'player', 'set_player', self )
+	get_tree().call_group( 'zombies', 'set_player', get_tree().get_root().get_node("World").get_node("Zombie") )
+
 #-----------------------------------------------------------
 func _physics_process( delta ) :
   var move_vec = Vector3()
@@ -81,16 +89,23 @@ func _physics_process( delta ) :
   # This is for RMB Melee
   if Input.is_action_just_pressed( 'MeleeAttack' ):
     gunAttackSprite.set_visible(false)
-    meleeAttackSprite.set_visible(true)
+    meleeAttackSprite.set_visible(true) 
     timer.start(0.6)
+    var vec_to_player = self.translation - zombies.translation
+    if vec_to_player.length() > SENSE_DISTANCE :
+    	coll = raycast.get_collider()
+    	if raycast.is_colliding() and coll.has_method( 'hurt' ) :
+        	coll.hurt(1)
+    	
 
   # Attack Zombie with Melee
-  var coll = raycast.get_collider()
+     
 #  if raycast.is_colliding() and coll.has_method( 'hurt' ) :
 #    coll.hurt()
 #    return
   
   # Attack Barrel_area with Melee
+  coll = raycast.get_collider()
   if raycast.is_colliding() and (coll.name == "Barrel_area") : 
     print('Barrel Hit called')
     coll.get_parent().BarrelHit()

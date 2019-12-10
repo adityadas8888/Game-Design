@@ -13,7 +13,7 @@
 
 [sub_resource type="CapsuleShape" id=1]
 
-[sub_resource type="AnimatedTexture" id=5]
+[sub_resource type="AnimatedTexture" id=2]
 flags = 4
 frames = 6
 fps = 0.0
@@ -98,7 +98,7 @@ hframes = 4
 visible = false
 position = Vector2( 290.539, -280.362 )
 scale = Vector2( 4.27274, 3.708 )
-texture = SubResource( 5 )
+texture = SubResource( 2 )
 
 [node name="Scopesight" type="TextureRect" parent="View"]
 visible = false
